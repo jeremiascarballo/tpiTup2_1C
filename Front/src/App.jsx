@@ -1,9 +1,10 @@
+import Dashboard from "./components/movies/dashboard/Dashboard"
 
 function App() {
 
   return (
     <>
-    <p>First commit</p>
+    <Dashboard/>
     </>
   )
 }
