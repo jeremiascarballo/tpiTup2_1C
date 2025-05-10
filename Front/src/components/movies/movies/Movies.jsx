@@ -2,7 +2,7 @@ import { movies } from "../../../data/Movies"
 import MoviesItem from "../moviesItem/MoviesItem"
 
 
-const Movies = ({movieSearch}) => {
+const Movies = ({ movieSearch }) => {
 
     const moviesMapped = movies
         .filter(movie =>
@@ -17,13 +17,13 @@ const Movies = ({movieSearch}) => {
             />
         );
 
-        return (
+    return (
             <div className="min-h-screen bg-black">
                 <div className="flex flex-wrap justify-center gap-10 p-4 bg-black">
                     {moviesMapped}
                 </div>
             </div>
-          );
+    );
 
 }
 

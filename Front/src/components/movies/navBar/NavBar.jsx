@@ -1,13 +1,17 @@
+import { Routes, Route, useNavigate } from "react-router";
+
 
 const NavBar = ({onSearchMovie, movieSearch}) => {
+
+    const navigate = useNavigate();
 
     const HandleSearchChange = (e) => {
         onSearchMovie(e.target.value)
     }
 
-   /* const HandleRedirectUser= () => {
-
-    }*/
+    const HandleRedirectLoginUser = () => {
+        navigate("/login")
+    }   
 
     return (
         <>
@@ -26,12 +30,9 @@ const NavBar = ({onSearchMovie, movieSearch}) => {
                     />
                 </div>
                 <div className="text-white text-right">
-                    <input
-                        type="button"
-                        value="Ingresar"
-                        className="bg-white text-black px-4 py-1 rounded hover:bg-gray-300"
-                        //onClick={HandleRedirectLoginUser}
-                    />
+                    <button className="bg-white text-black px-4 py-1 rounded hover:bg-gray-300" onClick={HandleRedirectLoginUser}>
+                            Ingresar
+                    </button>
                 </div>
             </div>
         </nav>
