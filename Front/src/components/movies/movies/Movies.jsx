@@ -2,9 +2,11 @@ import { movies } from "../../../data/Movies"
 import MoviesItem from "../moviesItem/MoviesItem"
 
 
-const Movies = () => {
+const Movies = ({movieSearch}) => {
 
     const moviesMapped = movies
+        .filter(movie =>
+            movie.title?.toUpperCase().includes(movieSearch.toUpperCase()))
         .map((movie) =>
             <MoviesItem
                 key={movie.id}
@@ -16,8 +18,10 @@ const Movies = () => {
         );
 
         return (
-            <div className="flex flex-wrap justify-center gap-10 p-4 bg-black min-h-auto">
-              {moviesMapped}
+            <div className="min-h-screen bg-black">
+                <div className="flex flex-wrap justify-center gap-10 p-4 bg-black">
+                    {moviesMapped}
+                </div>
             </div>
           );
 

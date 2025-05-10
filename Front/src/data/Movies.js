@@ -1,7 +1,7 @@
 export const movies = [
     {
         id : 1,
-        title: "minecraft",
+        title: "Minecraft",
         origin: "USA",
         genre: "Comedia,Aventura",
         director: "Jared Hess",
@@ -11,7 +11,7 @@ export const movies = [
     },
     {
         id: 2,
-        title: "Inside Out 2",
+        title: "Intesamente 2",
         origin: "USA",
         genre: "Animación, Aventura, Comedia",
         director: "Kelsey Mann",

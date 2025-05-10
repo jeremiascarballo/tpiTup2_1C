@@ -1,12 +1,11 @@
 
-const NavBar = () => {
+const NavBar = ({onSearchMovie, movieSearch}) => {
 
-    /*const HandleSearchMovie = () => {
-
-
+    const HandleSearchChange = (e) => {
+        onSearchMovie(e.target.value)
     }
 
-    const HandleRedirectUser= () => {
+   /* const HandleRedirectUser= () => {
 
     }*/
 
@@ -22,7 +21,8 @@ const NavBar = () => {
                         type="text"
                         placeholder="Busqueda"
                         className="px-2 py-1 rounded text-white border border-white hover:bg-gray-800"
-                        //onChange={HandleSearchMovie}
+                        onChange={HandleSearchChange}
+                        value={movieSearch}
                     />
                 </div>
                 <div className="text-white text-right">

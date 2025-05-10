@@ -1,7 +1,5 @@
 
-
 const MoviesItem = ({id,title,duration,img}) => {
-
 
     return (
         <div className="w-70 bg-zinc-900 rounded-lg overflow-hidden shadow-lg hover:scale-105 transition-transform">
@@ -19,7 +17,5 @@ const MoviesItem = ({id,title,duration,img}) => {
         </div>
       );
     };
-
-
 
 export default MoviesItem;
