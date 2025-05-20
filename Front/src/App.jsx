@@ -2,7 +2,8 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router";
 
 
 import Dashboard from "./components/movies/dashboard/Dashboard"
-import Login from "./components/login/Login";
+import Login from "./components/auth/Login";
+import Register from "./components/auth/Register";
 import Contact from "./components/contact/Contact";
 
 function App() {
@@ -14,6 +15,7 @@ function App() {
           <Route path="/" element={<Navigate to="home"/>}/>
           <Route path="/home" element={<Dashboard/>}/>
           <Route path="/login" element={<Login/>}/>
+          <Route path="/register" element={<Register/>}/>
           <Route path="/contact" element={<Contact/>}/>
         </Routes>
       </BrowserRouter>
