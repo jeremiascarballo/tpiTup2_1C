@@ -1,8 +1,7 @@
-import { movies } from "../../../data/Movies"
 import MoviesItem from "../moviesItem/MoviesItem"
 
 
-const Movies = ({ movieSearch }) => {
+const Movies = ({ movies, movieSearch }) => {
 
     const moviesMapped = movies
         .filter(movie =>
