@@ -1,6 +1,8 @@
 import express from 'express';
 import { sequelize } from './db.js';
-import movieRoutes from './routes/movies.route.js'
+import movieRoutes from './routes/movies.route.js';
+import userRoutes from './routes/user.route.js';
+import "dotenv/config"
 
 const app = express();
 
@@ -15,6 +17,7 @@ try {
     })
     app.listen(3000);
     app.use(movieRoutes);
+    app.use(userRoutes);
 
     await sequelize.sync();
 

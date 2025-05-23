@@ -2,8 +2,8 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router";
 
 
 import Dashboard from "./components/movies/dashboard/Dashboard"
-import Login from "./components/auth/Login";
-import Register from "./components/auth/Register";
+import Login from "./components/auth/login/Login";
+import Register from "./components/auth/register/Register";
 import Contact from "./components/contact/Contact";
 
 function App() {
