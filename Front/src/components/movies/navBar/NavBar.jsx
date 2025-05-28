@@ -1,7 +1,10 @@
-import { Routes, Route, useNavigate } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 
 
 const NavBar = ({onSearchMovie, movieSearch}) => {
+
+    const location = useLocation();
+
 
     const navigate = useNavigate();
 
@@ -21,13 +24,13 @@ const NavBar = ({onSearchMovie, movieSearch}) => {
                     <img src="src/assets/UTN_logo.jpg" alt="UTN Logo" className="h-[8vh] w-auto" />
                 </div>
                 <div className="text-center">
-                    <input
+                    {location.pathname === '/home' ? <input
                         type="text"
                         placeholder="Busqueda"
                         className="px-2 py-1 rounded text-white border border-white hover:bg-gray-800"
                         onChange={HandleSearchChange}
                         value={movieSearch}
-                    />
+                    /> : null}
                 </div>
                 <div className="text-white text-right">
                     <button className="bg-white text-black px-4 py-1 rounded hover:bg-gray-300" onClick={HandleRedirectLoginUser}>

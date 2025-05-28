@@ -1,15 +1,16 @@
 import { useState, useEffect } from "react"
-import { Routes, Route, useNavigate, useLocation } from "react-router";
+import {useLocation, useParams } from "react-router";
 
 import Movies from "../movies/Movies"
 import NavBar from "../navBar/NavBar"
 import Footer from "../footer/Footer"
 
-
 const Dashboard = () => {
 
   const [movies, SetMovies] = useState([]);
   const [movieSearch, SetMovieSearch] = useState("");
+
+  const { id } = useParams();
 
   const location = useLocation();
 
@@ -29,8 +30,8 @@ const Dashboard = () => {
 
   return (
     <>
-      <NavBar onSearchMovie={handleSearchMovie} movieSearch={movieSearch}/>
-          <Movies movies={movies} movieSearch={movieSearch}/>
+      <NavBar onSearchMovie={handleSearchMovie} movieSearch={movieSearch}/> 
+      <Movies movies={movies} movieSearch={movieSearch}/>
       <Footer />
     </>
   )
