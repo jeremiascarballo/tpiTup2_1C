@@ -3,9 +3,6 @@ import Footer from "../../movies/footer/Footer"
 import FindMovie from "../findMovie/FindMovie"
 
 const Movie = () => {
-
-  
-
   return (
     <>
       <NavBar/> 
