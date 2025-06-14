@@ -1,5 +1,5 @@
-import { movie as Movie } from '../model/movie.js'
-
+import { Movie } from '../model/movie.js'
+ 
 export const findMovies = async (req, res) => {
     try {
         const movies = await Movie.findAll();

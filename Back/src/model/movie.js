@@ -2,7 +2,7 @@ import { DataTypes } from "sequelize"
 import { sequelize } from '../db.js'
 
 
-export const movie = sequelize.define('movie',{
+export const Movie = sequelize.define('movie',{
     "id": { 
         type: DataTypes.INTEGER, 
         primaryKey:true, 
