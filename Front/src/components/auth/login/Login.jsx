@@ -1,28 +1,31 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useContext} from "react";
 import { useNavigate } from "react-router";
 
-
-import AuthConteiner from "./authConteiner";
+import { loginUser } from "./Login.services";
+import { AuthContext } from "../../../services/authContext/AuthContext";
+import AuthConteiner from "../authConteiner";
 
 
 
 const Login = () => {
 
-  const [emailUser, setEmailUser] = useState("");
-  const [passwordUser, setPasswordlUser] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [errors, setErrors] = useState({
     email: false,
     password: false
   });
 
-  const emailUserRef = useRef(null);
-  const passwordUserRef = useRef(null);
+  const emailRef = useRef(null);
+  const passwordRef = useRef(null);
+
+  const { handleUserLogin } = useContext(AuthContext);
 
   const navigate = useNavigate();
 
 
   const handleEmailChange = (event) => {
-    setEmailUser(event.target.value);
+    setEmail(event.target.value);
     setErrors(prevErrors => ({
       ...prevErrors,
       email: false
@@ -30,21 +33,19 @@ const Login = () => {
   }
 
   const handlePasswordChange = (e) => {
-    setPasswordlUser(e.target.value)
+    setPassword(e.target.value)
     setErrors(prevErrors=>({
       ...prevErrors,
       password: false
     }))
   }
-
-  
   
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    if (!emailUser.length) {
+    if (!email.length) {
         alert("¡El email está vacío!");
-        emailUserRef.current.focus();
+        emailRef.current.focus();
         setErrors(prevErrors => ({
             ...prevErrors,
             email: true,
@@ -52,9 +53,9 @@ const Login = () => {
         return;
     }
 
-    if (!passwordUserRef.current.value.length) {
+    if (!passwordRef.current.value.length) {
         alert("¡El password esta vacío!");
-        passwordUserRef.current.focus();
+        passwordRef.current.focus();
         setErrors(prevErrors => ({
             ...prevErrors,
             password: true,
@@ -62,9 +63,16 @@ const Login = () => {
         return;
     }
 
+    loginUser({ email, password },
+      (token) => {
+          handleUserLogin(token);
+          navigate('/home')
+      },
+      err => {
+          alert(err.message)
+      }
 
-    /*{LoginUser}*/
-
+  )
 
 }
 
@@ -82,8 +90,8 @@ const Login = () => {
             placeholder="Ingresar email"
             className="w-full p-2 rounded border"
             onChange={handleEmailChange}
-            value={emailUser}
-            ref={emailUserRef}
+            value={email}
+            ref={emailRef}
           />
         </div>
 
@@ -93,8 +101,8 @@ const Login = () => {
             placeholder="Ingresar contraseña"
             className="w-full p-2 rounded border border-gray-300"
             onChange={handlePasswordChange}
-            value={passwordUser}
-            ref={passwordUserRef}
+            value={password}
+            ref={passwordRef}
           />
         </div>
 

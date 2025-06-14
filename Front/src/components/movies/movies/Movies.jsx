@@ -1,21 +1,32 @@
-import { movies } from "../../../data/Movies"
+import { useNavigate } from "react-router";
 import MoviesItem from "../moviesItem/MoviesItem"
 
 
-const Movies = ({ movieSearch }) => {
+const Movies = ({ movies, movieSearch }) => {
+
+    const navigate = useNavigate();
+
+    const handleClick = (id) => {
+        navigate(`movie/${id}`);
+    };
 
     const moviesMapped = movies
         .filter(movie =>
             movie.title?.toUpperCase().includes(movieSearch.toUpperCase()))
-        .map((movie) =>
-            <MoviesItem
+        .map((movie) => (
+            <div
                 key={movie.id}
-                id={movie.id}
-                title={movie.title}
-                duration={movie.duration}
-                img={movie.img}
-            />
-        );
+                onClick={() => handleClick(movie.id)}
+                className="cursor-pointer"
+            >
+                <MoviesItem
+                    id={movie.id}
+                    title={movie.title}
+                    duration={movie.duration}
+                    img={movie.img}
+                />
+            </div>
+        ));
 
     return (
             <div className="min-h-screen bg-black">
