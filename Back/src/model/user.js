@@ -19,7 +19,7 @@ export const User = sequelize.define("user", {
     password: {
         type: DataTypes.TEXT,
         allowNull: false,
-    },
+    }
 }, {
     timestamps: false,
 });
