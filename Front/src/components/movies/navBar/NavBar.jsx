@@ -1,7 +1,10 @@
-import { useLocation, useNavigate } from "react-router";
-
+import { useContext } from "react";
+import { useLocation, useNavigate} from "react-router";
+import { AuthContext } from "../../../services/authContext/AuthContext";
 
 const NavBar = ({onSearchMovie, movieSearch}) => {
+
+    const { token, handleUserLogout } = useContext(AuthContext);
 
     const location = useLocation();
 
@@ -34,9 +37,15 @@ const NavBar = ({onSearchMovie, movieSearch}) => {
                     /> : null}
                 </div>
                 <div className="text-white text-right">
+                        {token?
+                    <button className="bg-white text-black px-4 py-1 rounded hover:bg-gray-300" onClick={handleUserLogout}>
+                            Cerrar Sesion
+                    </button>
+                    :
                     <button className="bg-white text-black px-4 py-1 rounded hover:bg-gray-300" onClick={HandleRedirectLoginUser}>
                             Ingresar
                     </button>
+                    }
                 </div>
             </div>
         </nav>
