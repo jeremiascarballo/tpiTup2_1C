@@ -10,7 +10,6 @@ const [functionsCinema, setFunctionsCinema] = useState([]);
         fetch(`${import.meta.env.VITE_API_URL}/functions`)
             .then(res => res.json())
             .then(data => {
-                console.log("Funciones encontradas:", data);
                 setFunctionsCinema(data);
             })
             .catch(err => console.log(err))

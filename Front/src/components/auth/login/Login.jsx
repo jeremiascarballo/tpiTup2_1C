@@ -1,6 +1,8 @@
 import { useState, useRef, useContext} from "react";
 import { useNavigate } from "react-router";
 
+import { errorToast } from "../../../utils/notifications";
+
 import { loginUser } from "./Login.services";
 import { AuthContext } from "../../../services/authContext/AuthContext";
 import AuthConteiner from "../authConteiner";
@@ -44,7 +46,7 @@ const Login = () => {
     event.preventDefault();
 
     if (!email.length) {
-        alert("¡El email está vacío!");
+        errorToast("¡El email está vacío!");
         emailRef.current.focus();
         setErrors(prevErrors => ({
             ...prevErrors,
@@ -54,7 +56,7 @@ const Login = () => {
     }
 
     if (!passwordRef.current.value.length) {
-        alert("¡El password esta vacío!");
+        errorToast("¡El password esta vacío!");
         passwordRef.current.focus();
         setErrors(prevErrors => ({
             ...prevErrors,
@@ -69,7 +71,7 @@ const Login = () => {
           navigate('/home')
       },
       err => {
-          alert(err.message)
+          errorToast(err.message)
       }
 
   )

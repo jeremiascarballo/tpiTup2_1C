@@ -14,7 +14,6 @@ const FindMovie = () => {
     fetch(`${import.meta.env.VITE_API_URL}/movies/${id}`)
       .then(res => res.json())
       .then(data => {
-        console.log("Película encontrada:", data);
         setMovie(data);
       })
       .catch(err => console.log(err))

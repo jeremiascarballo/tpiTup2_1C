@@ -36,7 +36,6 @@ export const isTokenValid = (token) => {
     try {
         const decodedToken = jwtDecode(token);
 
-        // We need to convert Date.now() from miliseconds to seconds
         const currentTime = Date.now() / 1000;
 
         return currentTime < decodedToken.exp;

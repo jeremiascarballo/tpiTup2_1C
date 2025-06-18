@@ -24,6 +24,16 @@ const tokenSaved = getValidToken();
 const AuthContextProvider = ({ children }) => {
 
     const [token, setToken] = useState(tokenSaved);
+    
+    const [userRole, setUserRole] = useState(() => {
+      if (!tokenSaved) return null;
+      try {
+        const decoded = jwtDecode(tokenSaved);
+        return decoded.role;
+      } catch {
+        return null;
+      }
+    });
 
     const [userId, setUserId] = useState(() => {
         if (!tokenSaved) return null;
@@ -41,8 +51,10 @@ const AuthContextProvider = ({ children }) => {
         try {
             const decoded = jwtDecode(newToken);
             setUserId(decoded.id);
+            setUserRole(decoded.role);
           } catch (error) {
             setUserId(null);
+            setUserRole(null);
           }
     }
 
@@ -50,11 +62,12 @@ const AuthContextProvider = ({ children }) => {
         localStorage.removeItem("user-token");
         setToken("");
         setUserId(null);
+        setUserRole(null);
     }
 
 
     return (
-        <AuthContext.Provider value={{ token, userId, handleUserLogin, handleUserLogout }}>
+        <AuthContext.Provider value={{ userRole, token, userId, handleUserLogin, handleUserLogout }}>
             {children}
         </AuthContext.Provider>
     )
