@@ -24,7 +24,6 @@ const Dashboard = () => {
       .then(res => res.json())
       .then(data => SetMovies([...data]))
       .catch(err => console.log(err))
-
   }
 
   useEffect(() => {

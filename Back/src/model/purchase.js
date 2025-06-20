@@ -1,33 +1,30 @@
 import { DataTypes } from "sequelize"
 import { sequelize } from '../db.js'
-import { FunctionCinema } from "./function.js";
-import { User } from "./user.js";
-
 
 export const Purchase = sequelize.define('purchase',{
-    "id": { 
+    'id': { 
         type: DataTypes.INTEGER, 
         primaryKey:true, 
         autoIncrement:true},
-    "purchase_date": {
+    'purchase_date': {
         type: DataTypes.DATE,
         allowNull: false,
     },
-    "amount": {
+    'amount': {
         type: DataTypes.INTEGER,
         allowNull: false,
     },
-    user_id: {
+    'user_id': {
         type: DataTypes.INTEGER,
         references: {
-          model: User,
+          model: 'users',
           key: 'id'
         }
       },
-    function_id: {
+    'function_id': {
         type: DataTypes.INTEGER,
         references: {
-          model: FunctionCinema,
+          model: 'function_cinema',
           key: 'id'
         }
       }

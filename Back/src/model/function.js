@@ -2,7 +2,7 @@ import { DataTypes } from "sequelize"
 import { sequelize } from '../db.js'
 
 
-export const FunctionCinema = sequelize.define('function_cinema',{
+export const FunctionCinema = sequelize.define('FunctionCinema',{
     "id": { 
         type: DataTypes.INTEGER, 
         primaryKey:true, 
@@ -32,5 +32,6 @@ export const FunctionCinema = sequelize.define('function_cinema',{
     });
   
     FunctionCinema.associate = (models) => {
+      FunctionCinema.hasMany(models.Purchase, { foreignKey: 'function_id' });
       FunctionCinema.belongsTo(models.Movie, { foreignKey: 'movie_id' });
     };  

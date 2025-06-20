@@ -4,6 +4,7 @@ import { useLocation } from "react-router";
 import NavBar from "../../movies/navBar/NavBar";
 import Footer from "../../movies/footer/Footer";
 import { AuthContext } from "../../../services/authContext/AuthContext";
+import { errorToast, successToast } from "../../../utils/notifications";
 
 const Purchase = () => {
   const location = useLocation();
@@ -22,7 +23,7 @@ const Purchase = () => {
 
     if (!userId) {
       console.log('TU ID ES', {userId})
-      alert("Debes iniciar sesión para reservar");
+      errorToast("Debes iniciar sesión para reservar");
       return;
     }
 
@@ -44,9 +45,9 @@ const Purchase = () => {
         throw new Error("Error al reservar entradas");
       }
   
-      alert("Reserva exitosa!");
+      successToast("Reserva exitosa!");
     } catch (error) {
-      alert(error.message);
+      errorToast(error.message);
     }
   };
 
