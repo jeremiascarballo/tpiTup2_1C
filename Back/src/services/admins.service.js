@@ -3,6 +3,7 @@ import jwt from "jsonwebtoken";
 import { User } from "../model/user.js";
 import { Movie } from "../model/movie.js";
 import { FunctionCinema } from '../model/function.js'
+import { Purchase } from "../model/purchase.js";
 
 export const userData = async (req, res) => {
 
@@ -87,3 +88,42 @@ export const addFunction = async (req,res) => {
     res.status(500).json({ message: "Error del servidor" });
   }
 } 
+
+export const deleteMovie = async (req, res) => {
+
+  const { id } = req.params;
+
+  try {
+    const deleted = await Movie.destroy({ where: { id } });
+
+    if (!deleted) {
+      return res.status(404).json({ message: "Película no encontrada" });
+    }
+
+    res.json({ message: "Película eliminada correctamente" });
+  } catch (error) {
+    console.error("Error al eliminar la película:", error);
+    res.status(500).json({ message: "Error del servidor" });
+  }
+};
+
+export const deleteFunctions = async (req, res) => {
+
+  const { id } = req.params;
+
+  try {
+
+    await Purchase.destroy({ where: { function_id: id } });
+
+    const deleted = await FunctionCinema.destroy({ where: { id } });
+
+    if (!deleted) {
+      return res.status(404).json({ message: "Funcion no encontrada" });
+    }
+
+    res.json({ message: "Funcion eliminada correctamente" });
+  } catch (error) {
+    console.error("Error al eliminar la Funcion:", error);
+    res.status(500).json({ message: "Error del servidor" });
+  }
+};

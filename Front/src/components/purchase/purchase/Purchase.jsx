@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import { useLocation } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 
 import NavBar from "../../movies/navBar/NavBar";
 import Footer from "../../movies/footer/Footer";
@@ -11,6 +11,7 @@ const Purchase = () => {
   const { movieTitle, totalSeats, availableSeats, dateFunction, functionId, movieId } = location.state || {};
   const [quantity, setQuantity] = useState(1);
 
+  const navigate = useNavigate();
 
   const { userId } = useContext(AuthContext);
 
@@ -24,6 +25,7 @@ const Purchase = () => {
     if (!userId) {
       console.log('TU ID ES', {userId})
       errorToast("Debes iniciar sesión para reservar");
+      navigate('/login')
       return;
     }
 
@@ -46,6 +48,7 @@ const Purchase = () => {
       }
   
       successToast("Reserva exitosa!");
+      navigate(`/home/movie/${movieId}`)
     } catch (error) {
       errorToast(error.message);
     }

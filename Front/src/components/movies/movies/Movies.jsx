@@ -1,8 +1,34 @@
+import { useState, useContext } from "react";
 import { useNavigate } from "react-router";
+
+import { AuthContext } from "../../../services/authContext/AuthContext";
 import MoviesItem from "../moviesItem/MoviesItem"
+import ModalDelete from "../../ui/modalDelete/ModalDelete";
 
+const Movies = ({ movies, movieSearch, onDeleteMovie}) => {
 
-const Movies = ({ movies, movieSearch }) => {
+    const [showModal, setShowModal] = useState(false);
+    const [selectedMovieId, setSelectedMovieId] = useState(null);
+    const [selectedMovieTitle, setSelectedMovieTitle] = useState("");
+
+    const { userRole } = useContext(AuthContext);
+
+    const handleOpenModal = (id, title) => {
+        setSelectedMovieId(id);
+        setSelectedMovieTitle(title);
+        setShowModal(true);
+    };
+
+    const handleCloseModal = () => {
+        setShowModal(false);
+        setSelectedMovieId(null);
+        setSelectedMovieTitle("");
+    };
+
+    const handleConfirmDelete = (id) => {
+        onDeleteMovie(id);
+        handleCloseModal();
+    };
 
     const navigate = useNavigate();
 
@@ -13,9 +39,8 @@ const Movies = ({ movies, movieSearch }) => {
     const moviesMapped = movies
         .filter(movie =>
             movie.title?.toUpperCase().includes(movieSearch.toUpperCase()))
-        .map((movie) => (
+        .map((movie) => (<div key={movie.id} className="relative">
             <div
-                key={movie.id}
                 onClick={() => handleClick(movie.id)}
                 className="cursor-pointer"
             >
@@ -26,14 +51,31 @@ const Movies = ({ movies, movieSearch }) => {
                     img={movie.img}
                 />
             </div>
+            {(userRole === 'admin' || userRole === 'superadmin') && (<button
+                onClick={() => handleOpenModal(movie.id, movie.title)}
+                className="absolute top-2 right-2 px-3 py-1 text-sm bg-red-600 text-white rounded hover:bg-red-700 z-10"
+            >
+                Eliminar
+            </button>)}
+        </div>
         ));
 
-    return (
-            <div className="min-h-screen bg-black">
-                <div className="flex flex-wrap justify-center gap-10 p-4 bg-black">
-                    {moviesMapped}
-                </div>
+    return (<>
+        {(userRole === 'admin' || userRole === 'superadmin') && (
+            <ModalDelete
+                show={showModal}
+                id={selectedMovieId}
+                movieTitle={selectedMovieTitle}
+                onCancel={handleCloseModal}
+                onDelete={handleConfirmDelete}
+            />
+        )}
+        <div className="min-h-screen bg-black">
+            <div className="flex flex-wrap justify-center gap-10 p-4 bg-black">
+                {moviesMapped}
             </div>
+        </div>
+    </>
     );
 
 }

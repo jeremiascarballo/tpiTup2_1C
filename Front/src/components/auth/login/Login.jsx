@@ -3,6 +3,7 @@ import { useNavigate } from "react-router";
 
 import { errorToast } from "../../../utils/notifications";
 
+import NavBar from "../../movies/navBar/NavBar";
 import { loginUser } from "./Login.services";
 import { AuthContext } from "../../../services/authContext/AuthContext";
 import AuthConteiner from "../authConteiner";

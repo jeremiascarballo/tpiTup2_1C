@@ -38,7 +38,7 @@ const AddFunction = ({ idMovie }) => {
     const onSubmit = (e) => {
         e.preventDefault();
 
-        fetch(`${import.meta.env.VITE_API_URL}/addfunction`, {
+        fetch(`${import.meta.env.VITE_API_URL}/functions`, {
             headers: {
                 "Content-type": "application/json"
             },

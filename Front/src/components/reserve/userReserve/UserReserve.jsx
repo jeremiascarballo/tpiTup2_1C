@@ -10,7 +10,7 @@ const UserReserve = () => {
     const { userId } = useContext(AuthContext)
 
     useEffect(() => {
-        fetch(`${import.meta.env.VITE_API_URL}/reserve`, {
+        fetch(`${import.meta.env.VITE_API_URL}/purchase`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",

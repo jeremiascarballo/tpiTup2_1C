@@ -40,7 +40,7 @@ const AddMovie = ({ fetchMovies }) => {
     const onSubmit = (e) => {
         e.preventDefault();
 
-        fetch(`${import.meta.env.VITE_API_URL}/addmovie`, {
+        fetch(`${import.meta.env.VITE_API_URL}/movies`, {
             headers: {
                 "Content-type": "application/json"
             },
