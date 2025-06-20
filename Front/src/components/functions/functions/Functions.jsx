@@ -1,6 +1,9 @@
 import { useNavigate } from "react-router";
+import { useFormatDate } from "../../../hooks/useFormatDate/useFormatDate";
 
 import FunctionItem from "../functionItem/FunctionItem";
+
+ 
 
 const Functions = ({ functionsCinema, id, movie}) => {
 
@@ -24,20 +27,7 @@ const Functions = ({ functionsCinema, id, movie}) => {
     const functionsMapped = functionsCinema
   .filter(f => f.movie_id == id)
   .map((funct) => {
-    const date = new Date(funct.date);
-
-    const configDate = {
-      weekday: 'long',
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric',
-      hour: '2-digit',
-      minute: '2-digit',
-      timeZone: 'America/Argentina/Buenos_Aires',
-      hour12: false,
-    };
-
-    const formatDate = date.toLocaleString('es-AR', configDate);
+    const formatDate = useFormatDate(funct.date)
 
     return (
       <div
@@ -59,10 +49,17 @@ const Functions = ({ functionsCinema, id, movie}) => {
     );
   });
 
-    return (<div className="mt-15 mb-15">
-        {functionsMapped}
-    </div>)
-
+  return (
+    <div className="mt-15 mb-15">
+      {functionsMapped.length > 0 ? (
+        functionsMapped
+      ) : (
+        <p className="text-lg text-red-600 my-5">
+          NO HAY FUNCIONES DISPONIBLES
+        </p>
+      )}
+    </div>
+  );
 }
 
 export default Functions;

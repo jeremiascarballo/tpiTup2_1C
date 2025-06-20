@@ -1,10 +1,13 @@
-import { useState, useEffect } from "react";
-
+import { useState, useEffect, useContext } from "react";
+import { AuthContext } from "../../../services/authContext/AuthContext";
 import Functions from "../functions/Functions";
+import AddFunction from "../../admin/addFunction/AddFunction";
 
-const FunctionsShow = ({id, movie}) => {
+const FunctionsShow = ({ id, movie }) => {
 
-const [functionsCinema, setFunctionsCinema] = useState([]);
+    const [functionsCinema, setFunctionsCinema] = useState([]);
+
+    const { userRole } = useContext(AuthContext);
 
     useEffect(() => {
         fetch(`${import.meta.env.VITE_API_URL}/functions`)
@@ -16,7 +19,8 @@ const [functionsCinema, setFunctionsCinema] = useState([]);
     }, []);
 
     return (<>
-        <Functions functionsCinema = {functionsCinema} id= {id} movie={movie}/>
+        {userRole=='admin'||userRole=='superadmin'&&  <AddFunction idMovie={id}/>}
+        <Functions functionsCinema={functionsCinema} id={id} movie={movie}/>
     </>)
 };
 

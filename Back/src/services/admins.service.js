@@ -2,6 +2,7 @@ import jwt from "jsonwebtoken";
 
 import { User } from "../model/user.js";
 import { Movie } from "../model/movie.js";
+import { FunctionCinema } from '../model/function.js'
 
 export const userData = async (req, res) => {
 
@@ -62,3 +63,27 @@ export const addMovie = async (req, res) => {
     res.status(500).json({ message: "Error del servidor" });
   }
 };
+
+
+export const addFunction = async (req,res) => {
+  try {
+    const {
+      date,
+      totalSeats,
+      idMovie
+    }=req.body
+
+    const newFunction = await FunctionCinema.create({
+      date,
+      total_seats: totalSeats,
+      available_seats: totalSeats,
+      movie_id: idMovie
+    });
+    res.json(newFunction.id);
+
+  }
+  catch (error) {
+    console.error("Error al agregar la funcion:", error);
+    res.status(500).json({ message: "Error del servidor" });
+  }
+} 

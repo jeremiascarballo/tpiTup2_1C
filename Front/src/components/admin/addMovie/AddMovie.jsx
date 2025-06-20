@@ -143,7 +143,7 @@ const AddMovie = ({ fetchMovies }) => {
         <div className="text-center">
             <button
                 onClick={handleClick}
-                className="px-6 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition">
+                className="px-6 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition my-5">
                 {isOpen ? "Cerrar Formulario" : "Agregar pelicula"} </button>
         </div>
     </div>)
