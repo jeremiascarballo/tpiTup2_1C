@@ -127,3 +127,26 @@ export const deleteFunctions = async (req, res) => {
     res.status(500).json({ message: "Error del servidor" });
   }
 };
+
+
+export const changeUserRole = async (req, res) =>{
+    try{
+      const {
+        userId,
+        selectRole
+      }=req.body
+
+      const userSelect= await User.findOne({
+        where:{id: userId}
+      }) 
+
+      userSelect.role = selectRole;
+      await userSelect.save();
+
+      res.json({ message: "Rol actualizado correctamente", user: userSelect });
+    }
+    catch(error){
+      console.error("Error al eliminar al cambiar el rol:", error);
+    res.status(500).json({ message: "Error del servidor" });
+    }
+}

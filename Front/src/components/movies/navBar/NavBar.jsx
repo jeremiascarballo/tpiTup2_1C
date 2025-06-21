@@ -4,7 +4,7 @@ import { AuthContext } from "../../../services/authContext/AuthContext";
 
 const NavBar = ({ onSearchMovie, movieSearch }) => {
 
-    const { token, handleUserLogout } = useContext(AuthContext);
+    const { token, handleUserLogout, userRole } = useContext(AuthContext);
 
     const location = useLocation();
 
@@ -23,20 +23,24 @@ const NavBar = ({ onSearchMovie, movieSearch }) => {
     const handleRedirectUserReserve = () => {
         navigate('/reserve')
     }
-    
+
     const handleRedirectHome = () => {
         navigate('/home')
     }
+
+    const handleRedirectUserData = () => {
+        navigate('/users')
+    } 
 
     return (
         <>
             <nav className="sticky top-0 z-50">
                 <div className="bg-black w-full h-[10vh] grid grid-cols-3 items-center px-4">
                     <div className="flex items-center">
-                       <a href=""
-                       onClick={handleRedirectHome}
-                       className="cursor-pointer"> 
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/6/67/UTN_logo.jpg" alt="UTN Logo" className="h-[8vh] w-auto" />
+                        <a href=""
+                            onClick={handleRedirectHome}
+                            className="cursor-pointer">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/6/67/UTN_logo.jpg" alt="UTN Logo" className="h-[8vh] w-auto" />
                         </a>
                     </div>
                     <div className="text-center">
@@ -49,11 +53,18 @@ const NavBar = ({ onSearchMovie, movieSearch }) => {
                         />}
                     </div>
                     <div className="text-white text-right flex gap-2 justify-end">
-                        {token && <button
+                        {(userRole==='superadmin') && (<button
+                            className=" text-white px-4 py-1 rounded hover:bg-gray-600 border border-gray-600"
+                            onClick={handleRedirectUserData}>
+                            USERS
+                        </button>)}
+
+                        {(userRole==='cliente') && (<button
                             className=" text-white px-4 py-1 rounded hover:bg-gray-600 border border-gray-600"
                             onClick={handleRedirectUserReserve}>
                             MIS ENTRADAS
-                        </button>}
+                        </button>)}
+
                         {token ?
                             <button className="bg-white text-black px-4 py-1 rounded hover:bg-gray-300"
                                 onClick={handleUserLogout}>
