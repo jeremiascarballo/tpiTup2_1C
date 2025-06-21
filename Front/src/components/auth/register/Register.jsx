@@ -4,6 +4,7 @@ import { useNavigate } from "react-router";
 import AuthConteiner from "../authConteiner";
 import { validateString, validateEmail, validatePassword } from "../auth.helpers";
 import { registerUser } from "./Register.services";
+import { errorToast, successToast } from "../../../utils/notifications";
 
 
 
@@ -36,7 +37,7 @@ const Register = () => {
         event.preventDefault();
 
         if (!nameUser.length || !validateString(nameUser, null, 13)) {
-            alert(`Nombre de usuario incorrecto`);
+            errorToast(`Nombre de usuario incorrecto`);
             setErrors({ ...errors, nameUser: true });
             return;
         }
@@ -47,7 +48,7 @@ const Register = () => {
         }
 
         else if (!passwordUser.length || !validatePassword(passwordUser, 7, null, true, true)) {
-            alert(`Password incorrecto`);
+            errorToast(`Password incorrecto`);
             setErrors({ ...errors, passwordUser: true });
             return;
         }
@@ -59,10 +60,10 @@ const Register = () => {
             emailUser,
             passwordUser,
             () => {
-                alert("¡Usuario creado exitosamente!")
+                successToast("¡Usuario creado exitosamente!");
                 navigate("/login");
             },
-            err => alert(err.message)
+            err => errorToast(err.message)
         )
 
     }

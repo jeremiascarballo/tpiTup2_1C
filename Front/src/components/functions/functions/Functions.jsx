@@ -1,68 +1,103 @@
+import { useState, useContext } from "react";
 import { useNavigate } from "react-router";
+import { useFormatDate } from "../../../hooks/useFormatDate/useFormatDate";
 
 import FunctionItem from "../functionItem/FunctionItem";
+import ModalDelete from "../../ui/modalDelete/ModalDelete";
+import { AuthContext } from "../../../services/authContext/AuthContext";
 
-const Functions = ({ functionsCinema, id, movie}) => {
+
+const Functions = ({ functionsCinema, id, movie, onDeleteFunction }) => {
+
+  const [showModal, setShowModal] = useState(false);
+  const [selectedFunctionId, setSelectedFunctionId] = useState(null);
+
+  const { userRole } = useContext(AuthContext);
+
+  const handleOpenModal = (id, title) => {
+    setSelectedFunctionId(id);
+    setShowModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+    setSelectedFunctionId(null);
+  };
+
+  const handleConfirmDelete = (id) => {
+    onDeleteFunction(id);
+    handleCloseModal();
+  };
+
 
   const navigate = useNavigate();
 
-    const handleClick = (movieTitle,functionId, totalSeats,availableSeats,date,movieId) => {
+  const handleClick = (movieTitle, functionId, totalSeats, availableSeats, date, movieId) => {
 
-      navigate('/purchase', {
-        state: {
-          movieTitle,
-          functionId: functionId,
-          movieId: movieId,
-          dateFunction: date,
-          totalSeats: totalSeats,
-          availableSeats: availableSeats,
-        },
-      });
+    navigate('/purchase', {
+      state: {
+        movieTitle,
+        functionId: functionId,
+        movieId: movieId,
+        dateFunction: date,
+        totalSeats: totalSeats,
+        availableSeats: availableSeats,
+      },
+    });
 
-    }
+  }
 
-    const functionsMapped = functionsCinema
-  .filter(f => f.movie_id == id)
-  .map((funct) => {
-    const date = new Date(funct.date);
+  const functionsMapped = functionsCinema
+    .filter(f => f.movie_id == id)
+    .map((funct) => {
+      const formatDate = useFormatDate(funct.date)
 
-    const configDate = {
-      weekday: 'long',
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric',
-      hour: '2-digit',
-      minute: '2-digit',
-      timeZone: 'America/Argentina/Buenos_Aires',
-      hour12: false,
-    };
+      return (<div key={funct.id} className="relative">
+        <div
+          onClick={() => handleClick(
+            movie.title,
+            funct.id,
+            funct.total_seats,
+            funct.available_seats,
+            formatDate,
+            funct.movie_id
+          )}
+          className="cursor-pointer"
+        >
+          <FunctionItem
+            date={formatDate}
+          />
+        </div>
+        {(userRole === 'admin' || userRole === 'superadmin') && (<button
+                onClick={() => handleOpenModal(funct.id)}
+                className="absolute top-3 right-6 px-4 py-2 text-sm bg-red-600 text-white rounded-lg hover:bg-red-700 z-10"
+            >
+                Eliminar
+            </button>)}
 
-    const formatDate = date.toLocaleString('es-AR', configDate);
-
-    return (
-      <div
-        key={funct.id}
-        onClick={() => handleClick(
-          movie.title,
-          funct.id,
-          funct.total_seats,
-          funct.available_seats,
-          formatDate,
-          funct.movie_id
-         )}
-        className="cursor-pointer"
-      >
-        <FunctionItem
-          date={formatDate}
-        />
       </div>
-    );
-  });
+      );
+    });
 
-    return (<div className="mt-15 mb-15">
-        {functionsMapped}
-    </div>)
-
+  return (<>
+  {(userRole === 'admin' || userRole === 'superadmin') && (
+            <ModalDelete
+                show={showModal}
+                id={selectedFunctionId}
+                onCancel={handleCloseModal}
+                onDelete={handleConfirmDelete}
+            />
+        )}
+    <div className="mt-15 mb-15">
+      {functionsMapped.length > 0 ? (
+        functionsMapped
+      ) : (
+        <p className="text-lg text-red-600 my-5">
+          NO HAY FUNCIONES DISPONIBLES
+        </p>
+      )}
+    </div>
+  </>);
 }
 
 export default Functions;

@@ -19,7 +19,13 @@ export const User = sequelize.define("user", {
     password: {
         type: DataTypes.TEXT,
         allowNull: false,
-    }
+    },
+    role: {
+        type: DataTypes.ENUM("superadmin", "admin", "cliente"),
+        allowNull: false,
+        defaultValue: 'cliente'
+      }
 }, {
     timestamps: false,
 });
+

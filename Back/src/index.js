@@ -4,14 +4,17 @@ import movieRoutes from './routes/movies.route.js';
 import userRoutes from './routes/user.route.js';
 import functionRoutes from './routes/functions.routes.js'
 import purchaseRoutes from './routes/purchase.routes.js'
-
+import adminsRoutes from './routes/admins.routes.js'
+ 
 import { User } from './model/user.js';
 import { FunctionCinema } from './model/function.js';
-import { Purchase } from './model/pucharse.js';
+import { Purchase } from './model/purchase.js';
+import { Movie } from './model/movie.js';
 
 import "dotenv/config"
 
-const models = { User, FunctionCinema, Purchase };
+
+const models = { User, FunctionCinema, Purchase, Movie };
 const app = express();
 
 
@@ -28,6 +31,7 @@ try {
     app.use(userRoutes);
     app.use(functionRoutes);
     app.use(purchaseRoutes);
+    app.use(adminsRoutes);
 
     await sequelize.sync();
 
