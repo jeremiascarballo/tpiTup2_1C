@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { successToast,errorToast } from "../../../utils/notifications";
 
-const ChangeRoleUser = ({ userName, userRole, userId }) => {
+const ChangeRoleUser = ({ userName, userRole, userId, fetchUserData, userRoleToken, handleClickItem }) => {
 
     const [selectRole, setSelectRole] = useState('')
 
@@ -11,7 +11,7 @@ const ChangeRoleUser = ({ userName, userRole, userId }) => {
 
     const onSubmit = (e) => {
         e.preventDefault();
-
+        if (userRoleToken === 'superadmin') {
         fetch(`${import.meta.env.VITE_API_URL}/users`, {
             headers: {
                 "Content-type": "application/json"
@@ -28,10 +28,17 @@ const ChangeRoleUser = ({ userName, userRole, userId }) => {
             })
             .then(() => {
                 successToast("Role Cambiado con exito");
+                fetchUserData();
+                handleClickItem();
               })
               .catch((err) => {
                 errorToast(err.message);
               });
+            }
+        else {
+            errorToast('No tienes los permisos necesarios')
+           
+        }
     }
 
     return (

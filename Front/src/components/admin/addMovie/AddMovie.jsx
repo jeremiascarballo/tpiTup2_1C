@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { useNavigate } from "react-router";
 
 import {errorToast, successToast} from '../../../utils/notifications'
 
@@ -13,6 +14,8 @@ const AddMovie = ({ fetchMovies }) => {
     const [duration, setDuration] = useState('');
     const [img, setImg] = useState('');
     const [description, setDescription] = useState('');
+
+    const navigate = useNavigate();    
 
     const handleChangeTitle = (e) => {
         setTitle(e.target.value)

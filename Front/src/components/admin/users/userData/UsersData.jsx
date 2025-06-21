@@ -12,12 +12,10 @@ const UsersData = () => {
 
     const [users, setUsers] = useState([])
 
-    const [isOpen, setIsOpen] = useState(false);
     const [openUserId, setOpenUserId] = useState(null);
 
-    useEffect(() => {
-        if (userRole === 'superadmin') {
-
+    
+    const fetchUserData = () => {
             const token = localStorage.getItem("user-token");
 
             fetch(`${import.meta.env.VITE_API_URL}/users`, {
@@ -32,7 +30,12 @@ const UsersData = () => {
                     setUsers(data);
                 })
                 .catch(err => console.error(err));
-        }
+        };
+
+    useEffect(() => {
+        if (userRole === 'superadmin') {
+            fetchUserData();
+       } 
     }, [userRole]);
 
     if (userRole != "superadmin") {
@@ -58,7 +61,9 @@ const UsersData = () => {
                         name={user.name}
                         email={user.email}
                         role={user.role}
+                        userRoleToken={userRole}
                         handleClick={handleClick}
+                        fetchUserData={fetchUserData}
                         isOpen={openUserId === user.id}
                     />
                 </div>

@@ -1,12 +1,15 @@
 import { useState } from "react"
+import { useNavigate } from "react-router";
 import { errorToast, successToast } from "../../../utils/notifications";
 
-const AddFunction = ({ idMovie }) => {
+const AddFunction = ({ idMovie, fetchFunctions }) => {
     
     const [date, setDate] = useState('');
     const [totalSeats, setTotalSeats] = useState('');
 
     const [isOpen, setIsOpen] = useState(false);
+
+    const navigate = useNavigate();
 
     const handleChangeDate = (e) => {
         const inputDate= new Date(e.target.value)
@@ -53,9 +56,10 @@ const AddFunction = ({ idMovie }) => {
                 return res.json();
             })
             .then(() => {
-                successToast("Película agregada correctamente");
+                successToast("Funcion agregada correctamente");
                 setDate('')
                 setTotalSeats('')
+                fetchFunctions();
               })
               .catch((err) => {
                 errorToast(err.message);

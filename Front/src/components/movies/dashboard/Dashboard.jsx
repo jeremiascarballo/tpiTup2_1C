@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext } from "react"
-import { useLocation, useParams } from "react-router";
+import {useParams } from "react-router";
 
 import { AuthContext } from "../../../services/authContext/AuthContext";
 
@@ -18,7 +18,6 @@ const Dashboard = () => {
 
   const { id } = useParams();
 
-  const location = useLocation();
 
   const fetchMovies = () => {
     fetch(`${import.meta.env.VITE_API_URL}/movies`)
@@ -28,9 +27,8 @@ const Dashboard = () => {
   }
 
   useEffect(() => {
-    if (location.pathname === "/home")
       fetchMovies();
-  }, [location]);
+  }, []);
 
   const handleSearchMovie = (value) => {
 

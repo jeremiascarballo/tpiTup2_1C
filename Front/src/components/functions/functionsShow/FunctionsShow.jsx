@@ -13,15 +13,18 @@ const FunctionsShow = ({ id, movie }) => {
 
     const { userRole } = useContext(AuthContext);
 
-    useEffect(() => {
+    const fetchFunctions = () => {
         fetch(`${import.meta.env.VITE_API_URL}/functions`)
             .then(res => res.json())
             .then(data => {
                 setFunctionsCinema(data);
             })
             .catch(err => console.log(err))
-    }, []);
+          }
 
+    useEffect(() => {
+      fetchFunctions();
+    }, []);
 
     const handleDeleteMovie = (id) => {
         fetch(`${import.meta.env.VITE_API_URL}/function/${id}`, {
@@ -46,7 +49,7 @@ const FunctionsShow = ({ id, movie }) => {
       };
 
     return (<>
-        {(userRole=='admin'||userRole=='superadmin') && (<AddFunction idMovie={id}/>)}
+        {(userRole=='admin'||userRole=='superadmin') && (<AddFunction idMovie={id} fetchFunctions={fetchFunctions}/>)}
         <Functions functionsCinema={functionsCinema} id={id} movie={movie} onDeleteFunction={handleDeleteMovie}/>
     </>)
 };

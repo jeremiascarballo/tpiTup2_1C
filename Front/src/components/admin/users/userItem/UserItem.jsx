@@ -1,6 +1,7 @@
+
 import ChangeRoleUser from '../../changeRoleUser/ChangeRoleUser'
 
-const UserItem = ({ id, name, email, role, handleClick, isOpen}) => {
+const UserItem = ({ id, name, email, role, handleClick, isOpen, fetchUserData, userRoleToken }) => {
 
     const handleClickItem = () =>{
       handleClick(id);
@@ -17,7 +18,14 @@ const UserItem = ({ id, name, email, role, handleClick, isOpen}) => {
         onClick={handleClickItem}
         >{!isOpen?'Cambiar Role': 'Cancelar'}
         </button>}
-        {isOpen && <ChangeRoleUser userName={name} userRole={role} userId={id}/>}
+        {isOpen && 
+        <ChangeRoleUser 
+        userName={name} 
+        userRole={role} 
+        userId={id} 
+        userRoleToken={userRoleToken} 
+        fetchUserData={fetchUserData}
+        handleClickItem={handleClickItem}/>}
       </div>
     );
   };
