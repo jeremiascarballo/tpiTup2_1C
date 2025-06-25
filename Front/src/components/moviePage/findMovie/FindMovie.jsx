@@ -22,7 +22,7 @@ const FindMovie = () => {
 
   return (
     <div className="min-h-screen text-white bg-black">
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 pb-15 pt-5">
         <div className="lg:col-span-8 p-4">
             <div>
               <h1 className="text-[7rem]">{movie.title}</h1>

@@ -34,8 +34,8 @@ const NavBar = ({ onSearchMovie, movieSearch }) => {
 
     return (
         <>
-            <nav className="sticky top-0 z-50">
-                <div className="bg-black w-full h-[10vh] grid grid-cols-3 items-center px-4">
+            <nav className="sticky top-0 z-50 border-b border-white bg-black py-2">
+                <div className="w-full h-[10vh] grid grid-cols-3 items-center px-4">
                     <div className="flex items-center">
                         <a href=""
                             onClick={handleRedirectHome}

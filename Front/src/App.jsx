@@ -29,9 +29,7 @@ function App() {
           {/* data */}
           <Route path="/users" element={<UsersData/>}/>
           <Route path="/reserve" element={<ShowReserve/>}/>
-
-
-          <Route path="/contact" element={<Contact/>}/>
+          
         </Routes>
       </BrowserRouter>
     </>

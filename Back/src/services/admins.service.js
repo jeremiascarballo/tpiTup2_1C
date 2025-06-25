@@ -94,6 +94,23 @@ export const deleteMovie = async (req, res) => {
   const { id } = req.params;
 
   try {
+    const functions = await FunctionCinema.findAll({
+      where: { movie_id: id },
+    });
+
+    const functionsId = functions.map(f => f.id);
+
+    if (functionsId.length > 0) {
+
+      await Purchase.destroy({
+        where: { function_id: functionsId }
+      });
+
+      await FunctionCinema.destroy({
+        where: { id: functionsId }
+      });
+    }
+
     const deleted = await Movie.destroy({ where: { id } });
 
     if (!deleted) {

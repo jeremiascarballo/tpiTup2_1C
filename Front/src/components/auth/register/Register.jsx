@@ -11,7 +11,7 @@ import { errorToast, successToast } from "../../../utils/notifications";
 const Register = () => {
     const [nameUser, setNameUser] = useState("");;
     const [emailUser, setEmailUser] = useState("");
-    const [passwordUser, setPasswordlUser] = useState("");
+    const [passwordUser, setPasswordUser] = useState("");
     const [errors, setErrors] = useState({
         name: false,
         email: false,
@@ -26,7 +26,7 @@ const Register = () => {
     }
 
     const handlePasswordChange = (e) => {
-        setPasswordlUser(e.target.value)
+        setPasswordUser(e.target.value)
     }
 
     const handleNameChange = (event) => {
@@ -38,22 +38,22 @@ const Register = () => {
 
         if (!nameUser.length || !validateString(nameUser, null, 13)) {
             errorToast(`Nombre de usuario incorrecto`);
-            setErrors({ ...errors, nameUser: true });
+            setErrors({ ...errors, name: true });
             return;
         }
         if (!emailUser.length || !validateEmail(emailUser)) {
             alert(`Email incorrecto`);
-            setErrors({ ...errors, emailUser: true });
+            setErrors({ ...errors, email: true });
             return;
         }
 
         else if (!passwordUser.length || !validatePassword(passwordUser, 7, null, true, true)) {
             errorToast(`Password incorrecto`);
-            setErrors({ ...errors, passwordUser: true });
+            setErrors({ ...errors, password: true });
             return;
         }
 
-        setErrors({ emailUser: false, passwordUser: false })
+        setErrors({ email: false, password: false })
 
         registerUser(
             nameUser,
@@ -61,6 +61,9 @@ const Register = () => {
             passwordUser,
             () => {
                 successToast("¡Usuario creado exitosamente!");
+                setNameUser("");
+                setEmailUser(""); 
+                setPasswordUser("");
                 navigate("/login");
             },
             err => errorToast(err.message)

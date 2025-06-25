@@ -30,17 +30,3 @@ export const validatePassword = (password, minLength, maxLength, needsUppercase,
 
     return true;
 }
-
-export const isTokenValid = (token) => {
-    if (!token) return false;
-    try {
-        const decodedToken = jwtDecode(token);
-
-        const currentTime = Date.now() / 1000;
-
-        return currentTime < decodedToken.exp;
-    } catch (error) {
-        console.error('Error decoding token:', error);
-        return false;
-    }
-}

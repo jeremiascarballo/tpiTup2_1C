@@ -67,6 +67,7 @@ const AddMovie = ({ fetchMovies }) => {
                 setDuration('');
                 setImg('');
                 setDescription('');
+                setIsOpen(false);
                 fetchMovies();
               })
               .catch((err) => {

@@ -1,5 +1,4 @@
 import { useState } from "react"
-import { useNavigate } from "react-router";
 import { errorToast, successToast } from "../../../utils/notifications";
 
 const AddFunction = ({ idMovie, fetchFunctions }) => {
@@ -8,8 +7,6 @@ const AddFunction = ({ idMovie, fetchFunctions }) => {
     const [totalSeats, setTotalSeats] = useState('');
 
     const [isOpen, setIsOpen] = useState(false);
-
-    const navigate = useNavigate();
 
     const handleChangeDate = (e) => {
         const inputDate= new Date(e.target.value)
@@ -57,6 +54,7 @@ const AddFunction = ({ idMovie, fetchFunctions }) => {
             })
             .then(() => {
                 successToast("Funcion agregada correctamente");
+                setIsOpen(false);
                 setDate('')
                 setTotalSeats('')
                 fetchFunctions();
@@ -72,7 +70,6 @@ const AddFunction = ({ idMovie, fetchFunctions }) => {
             <p className="mb-4 font-semibold text-center">Rellene los datos para ingresar la pelicula</p>
             <input
                 type="datetime-local"
-                placeholder="Fecha '2025-06-20'"
                 onChange={handleChangeDate}
                 value={date}
                 className="block w-full mb-3 px-3 py-2 border rounded border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"

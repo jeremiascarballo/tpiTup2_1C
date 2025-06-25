@@ -24,7 +24,7 @@ export const loginUser = async (req, res) => {
     const comparison = await bcrypt.compare(password, user.password);
 
     if (!comparison)
-        return res.status(401).send({ message: "Contraseña incorrecto" });
+        return res.status(401).send({ message: "Contraseña incorrecta" });
 
     // Generate token
     const secretKey = process.env.SECRET_STRING;

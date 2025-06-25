@@ -1,6 +1,5 @@
-import {errorToast, successToast} from '../../../utils/notifications'
 
-export const registerUser = (name, email, password) => {
+export const registerUser = (name, email, password, onSuccess, onError) => {
     fetch(`${import.meta.env.VITE_API_URL}/register`, {
         headers: {
             "Content-type": "application/json"
@@ -17,9 +16,9 @@ export const registerUser = (name, email, password) => {
             return res.json();
         })
         .then(() => {
-            successToast("Usuario registrado correctamente");
+            onSuccess();
         })
         .catch((err) => {
-            errorToast(err.message || "Ocurrió un error al registrar");
+            onError(err);
         });
     };

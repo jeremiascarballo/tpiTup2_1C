@@ -1,10 +1,12 @@
 import { useContext, useState } from "react";
 import { useLocation, useNavigate } from "react-router";
 
-import NavBar from "../../movies/navBar/NavBar";
+import NavBar from '../../movies/navBar/NavBar';
 import Footer from "../../movies/footer/Footer";
+
 import { AuthContext } from "../../../services/authContext/AuthContext";
 import { errorToast, successToast } from "../../../utils/notifications";
+
 
 const Purchase = () => {
   const location = useLocation();
@@ -13,7 +15,7 @@ const Purchase = () => {
 
   const navigate = useNavigate();
 
-  const { userId } = useContext(AuthContext);
+  const { userId, userRole } = useContext(AuthContext);
 
   const handleSelectChange = (e) => {
     setQuantity(e.target.value);
@@ -23,11 +25,15 @@ const Purchase = () => {
     e.preventDefault();
 
     if (!userId) {
-      console.log('TU ID ES', {userId})
       errorToast("Debes iniciar sesión para reservar");
       navigate('/login')
       return;
     }
+      else if (userRole !== "cliente") {
+        errorToast("Debes ser cliente para reservar entradas");
+        navigate(`/home/movie/${movieId}`)
+        return;
+      }
 
     try {
       const response = await fetch(`${import.meta.env.VITE_API_URL}/purchase`, {
