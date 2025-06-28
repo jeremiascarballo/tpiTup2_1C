@@ -10,6 +10,7 @@ import Movie from "./components/moviePage/Movie/Movie";
 import Purchase from "./components/purchase/purchase/Purchase";
 import UsersData from "./components/admin/users/userData/UsersData";
 import ShowReserve from "./components/reserve/showReserve/ShowReserve";
+import NotFound from "./components/routes/notFound/NotFound";
 
 function App() {
 
@@ -30,6 +31,7 @@ function App() {
           <Route path="/users" element={<UsersData/>}/>
           <Route path="/reserve" element={<ShowReserve/>}/>
           
+          <Route path="*" element={<NotFound/>}/>
         </Routes>
       </BrowserRouter>
     </>
