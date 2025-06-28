@@ -32,52 +32,51 @@ const Functions = ({ functionsCinema, id, movie, onDeleteFunction }) => {
 
   const navigate = useNavigate();
 
-  const handleClick = (movieTitle, functionId, totalSeats, availableSeats, date, movieId) => {
+  const handleClick = (movieTitle, functionId, movieId , dateFunction, totalSeats, availableSeats ) => {
 
     navigate('/purchase', {
       state: {
         movieTitle,
-        functionId: functionId,
-        movieId: movieId,
-        dateFunction: date,
-        totalSeats: totalSeats,
-        availableSeats: availableSeats,
+        functionId,
+        movieId,
+        dateFunction,
+        totalSeats,
+        availableSeats,
       },
     });
 
   }
 
   const functionsMapped = functionsCinema
-    .filter(f => f.movie_id == id)
-    .map((funct) => {
-      const formatDate = useFormatDate(funct.date)
+  .filter(f => f.movie_id == id)
+  .map(funct => {
+    const formatDate = useFormatDate(funct.date);
 
-      return (<div key={funct.id} className="relative">
-        <div
-          onClick={() => handleClick(
-            movie.title,
-            funct.id,
-            funct.total_seats,
-            funct.available_seats,
-            formatDate,
-            funct.movie_id
-          )}
-          className="cursor-pointer"
-        >
-          <FunctionItem
-            date={formatDate}
-          />
+    return (
+      <div key={funct.id} className="relative">
+        <div>
+            <FunctionItem
+              handleClick={handleClick}
+              movieTitle={movie.title}
+              functionId={funct.id}
+              movieId={funct.movie_id}
+              dateFunction={formatDate}
+              totalSeats={funct.total_seats}
+              availableSeats={funct.available_seats}
+            />
         </div>
-        {(userRole === 'admin' || userRole === 'superadmin') && (<button
-                onClick={() => handleOpenModal(funct.id)}
-                className="absolute top-3 right-6 px-4 py-2 text-sm bg-red-600 text-white rounded-lg hover:bg-red-700 z-10"
-            >
-                Eliminar
-            </button>)}
 
+        {(userRole === 'admin' || userRole === 'superadmin') && (
+          <button
+            onClick={() => handleOpenModal(funct.id)}
+            className="absolute top-3 right-6 px-4 py-2 text-sm bg-red-600 text-white rounded-lg hover:bg-red-700 z-10"
+          >
+            Eliminar
+          </button>
+        )}
       </div>
-      );
-    });
+    );
+  });
 
   return (<>
   {(userRole === 'admin' || userRole === 'superadmin') && (

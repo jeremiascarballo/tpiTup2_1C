@@ -10,7 +10,7 @@ import { errorToast, successToast } from "../../../utils/notifications";
 
 const Purchase = () => {
   const location = useLocation();
-  const { movieTitle, totalSeats, availableSeats, dateFunction, functionId, movieId } = location.state || {};
+  const { movieTitle, functionId, movieId, dateFunction, totalSeats, availableSeats} = location.state || {};
   const [quantity, setQuantity] = useState(1);
 
   const navigate = useNavigate();
@@ -18,7 +18,7 @@ const Purchase = () => {
   const { userId, userRole } = useContext(AuthContext);
 
   const handleSelectChange = (e) => {
-    setQuantity(e.target.value);
+    setQuantity(Number(e.target.value));
   }
 
   const handleClick = async (e) => {
@@ -32,6 +32,17 @@ const Purchase = () => {
       else if (userRole !== "cliente") {
         errorToast("Debes ser cliente para reservar entradas");
         navigate(`/home/movie/${movieId}`)
+        return;
+      }
+
+      if (quantity < 1) {
+        errorToast("Debes seleccionar al menos una entrada");
+        setQuantity(1);
+        return;
+      }
+    
+      if (quantity > availableSeats) {
+        errorToast("No hay suficientes entradas disponibles");
         return;
       }
 
@@ -58,8 +69,7 @@ const Purchase = () => {
     } catch (error) {
       errorToast(error.message);
     }
-  };
-
+  }
 
   return (
     <>
