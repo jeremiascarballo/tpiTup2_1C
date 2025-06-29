@@ -1,5 +1,13 @@
 import { Router } from "express";
-import { userData, addMovie, addFunction, deleteMovie, deleteFunctions, changeUserRole } from "../services/admins.service.js";
+import { 
+    userData, 
+    addMovie, 
+    addFunction, 
+    deleteMovie, 
+    deleteFunctions, 
+    changeUserRole,
+    deleteUser
+    } from "../services/admins.service.js";
 
 
 const router = Router();
@@ -12,5 +20,6 @@ router.post("/users", changeUserRole);
 
 router.delete("/movies/:id", deleteMovie);
 router.delete("/function/:id", deleteFunctions);
+router.delete("/users/:id", deleteUser);
 
 export default router;

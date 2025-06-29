@@ -145,7 +145,6 @@ export const deleteFunctions = async (req, res) => {
   }
 };
 
-
 export const changeUserRole = async (req, res) =>{
     try{
       const {
@@ -167,3 +166,24 @@ export const changeUserRole = async (req, res) =>{
     res.status(500).json({ message: "Error del servidor" });
     }
 }
+
+export const deleteUser = async (req, res) => {
+
+  const { id } = req.params;
+
+  try {
+
+    await Purchase.destroy({ where: { user_id: id } });
+
+    const deleted = await User.destroy({ where: { id } });
+
+    if (!deleted) {
+      return res.status(404).json({ message: "Usuario no encontrado" });
+    }
+
+    res.json({ message: "Usuario eliminado correctamente" });
+  } catch (error) {
+    console.error("Error al eliminar el Usuario:", error);
+    res.status(500).json({ message: "Error del servidor" });
+  }
+};

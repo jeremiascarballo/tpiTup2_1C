@@ -3,7 +3,8 @@ import React from 'react';
 const ModalDelete = ({ 
     show, 
     id, 
-    movieTitle, 
+    movieTitle,
+    name, 
     onCancel, 
     onDelete }) => {
 
@@ -28,8 +29,9 @@ const ModalDelete = ({
 
         <div className="mb-4">
           <p className="text-gray-700">
-            {movieTitle? <span>¿Desea eliminar <b>{movieTitle}</b>?</span>:
-            <span>¿Desear eliminar la funcion?</span>}
+            {movieTitle && <span>¿Desea eliminar <b>{movieTitle}</b></span>}
+            {name && <span>¿Desea eliminar al usuario <b>{name}</b></span>}
+            {!name && !movieTitle && <span>¿Desear eliminar la funcion?</span>}
           </p>
         </div>
 
