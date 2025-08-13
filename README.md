@@ -25,7 +25,8 @@ JWT para autenticación
 Bcrypt para encriptación de contraseñas
 
 
-📌 Funcionalidades principales
+📌 Funcionalidades principales.
+
 Interfaz intuitiva que mantiene informado al usuario sobre las novedades del cine.
 
 CRUD completo para cada entidad mediante controladores (ABM: Alta, Baja, Modificación).
